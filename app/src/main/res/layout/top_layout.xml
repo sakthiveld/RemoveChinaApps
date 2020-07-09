@@ -20,23 +20,24 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/_8sdp"
         android:layout_marginRight="@dimen/_8sdp"
-        android:layout_toLeftOf="@+id/search_image"
+        android:layout_toLeftOf="@+id/sort_image"
         android:layout_toRightOf="@+id/menu_image"
         android:gravity="center"
         android:maxLines="1"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="@dimen/_17sdp" />
+        android:textSize="@dimen/_15sdp"
+        android:textStyle="bold"/>
 
     <ImageButton
-        android:visibility="invisible"
-        android:id="@+id/search_image"
+        android:visibility="visible"
+        android:id="@+id/sort_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
-        android:background="@drawable/search_white" />
+        android:background="@drawable/sort_white" />
 
 </RelativeLayout>

@@ -21,4 +21,12 @@
     <string name="buy_me_a_coffee">Buy Me a Coffee</string>
     <string name="website">\u00A9 saathiral.com</string>
     <string name="gmail">saathiral@outlook.com</string>
+
+    <string name="uninstall">Uninstall</string>
+    <string name="open">Open</string>
+    <string name="details">Details</string>
+    <string name="googleplay">Search in Google Play</string>
+
+    <string name="atoz">Name (AtoZ)</string>
+    <string name="ztoa">Name (ZtoA)</string>
 </resources>

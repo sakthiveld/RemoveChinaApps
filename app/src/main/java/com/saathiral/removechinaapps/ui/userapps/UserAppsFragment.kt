@@ -9,8 +9,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,15 +23,19 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.saathiral.removechinaapps.AppInfo
+import com.saathiral.removechinaapps.MainActivity
 import com.saathiral.removechinaapps.R
+import com.saathiral.removechinaapps.sharedpreferences.StorePreferences
+import com.saathiral.removechinaapps.ui.`interface`.SortingInterface
 import com.saathiral.removechinaapps.ui.adapter.RecyclerViewAdapter
+import kotlinx.android.synthetic.main.sorting_details.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.invoke
 import kotlinx.coroutines.launch
 import java.util.function.Predicate
 
-class UserAppsFragment(var activity: Activity) : Fragment() {
+class UserAppsFragment(var activity: Activity) : Fragment(), SortingInterface {
     private var progressBar: ProgressBar? = null
     private var recyclerView: RecyclerView? = null
     private var adView: AdView? = null
@@ -39,6 +45,7 @@ class UserAppsFragment(var activity: Activity) : Fragment() {
     val userApps: MutableList<AppInfo> = mutableListOf()
     val systemApps: MutableList<AppInfo> = mutableListOf()
     var appInfo: MutableList<AppInfo> = mutableListOf()
+    private val storePreferences = StorePreferences(activity)
 
     companion object {
         fun newInstance() = UserAppsFragment(activity = Activity())
@@ -152,6 +159,11 @@ class UserAppsFragment(var activity: Activity) : Fragment() {
                 systemApps.add(newInfo)
             }
         }
+        if(storePreferences.getSorting().equals("AtoZ", ignoreCase = true)) {
+            userApps.sortBy { it.appName?.toString() }
+        } else {
+            userApps.sortByDescending { it.appName?.toString() }
+        }
         return@Default userApps
     }
 
@@ -176,5 +188,21 @@ class UserAppsFragment(var activity: Activity) : Fragment() {
         } else if (resultCode === RESULT_FIRST_USER) {
             //Toast.makeText(context, "onActivityResult: failed to (un)install", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    override fun forSorting(whichSorting: String?) {
+        when (whichSorting) {
+            "AtoZ" -> {
+                appInfo.sortBy { it.appName?.toString() }
+            }
+            "ZtoA" -> {
+                appInfo.sortByDescending { it.appName?.toString() }
+            }
+            else -> {
+                appInfo.sortBy { it.appName?.toString() }
+            }
+        }
+        recyclerViewAdapter!!.notifyDataSetChanged()
+        Toast.makeText(activity, whichSorting + " sorting was applied", Toast.LENGTH_LONG).show()
     }
 }

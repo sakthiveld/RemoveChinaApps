@@ -20,7 +20,10 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.saathiral.removechinaapps.AppInfo
+import com.saathiral.removechinaapps.MainActivity
 import com.saathiral.removechinaapps.R
+import com.saathiral.removechinaapps.sharedpreferences.StorePreferences
+import com.saathiral.removechinaapps.ui.`interface`.SortingInterface
 import com.saathiral.removechinaapps.ui.adapter.RecyclerViewAdapter
 import com.saathiral.removechinaapps.ui.adapter.SystemAppsRecyclerViewAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -28,7 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.invoke
 import kotlinx.coroutines.launch
 
-class SystemAppsFragment(var activity: Activity) : Fragment() {
+class SystemAppsFragment(var activity: Activity) : Fragment(), SortingInterface {
     private var progressBar: ProgressBar? = null
     private var recyclerView : RecyclerView? = null
     private var adView : AdView? = null
@@ -38,6 +41,7 @@ class SystemAppsFragment(var activity: Activity) : Fragment() {
     val userApps: MutableList<AppInfo> = mutableListOf()
     val systemApps: MutableList<AppInfo> = mutableListOf()
     var appInfo: MutableList<AppInfo> = mutableListOf()
+    private val storePreferences = StorePreferences(activity)
 
     companion object {
         fun newInstance() = SystemAppsFragment(activity = Activity())
@@ -138,6 +142,11 @@ class SystemAppsFragment(var activity: Activity) : Fragment() {
                 systemApps.add(newInfo)
             }
         }
+        if(storePreferences.getSorting().equals("AtoZ", ignoreCase = true)) {
+            systemApps.sortBy { it.appName?.toString() }
+        } else {
+            systemApps.sortByDescending { it.appName?.toString() }
+        }
         return@Default systemApps
     }
 
@@ -145,6 +154,22 @@ class SystemAppsFragment(var activity: Activity) : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SystemAppsViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun forSorting(whichSorting : String?) {
+        when(whichSorting) {
+            "AtoZ" -> {
+                appInfo.sortBy { it.appName?.toString() }
+            }
+            "ZtoA" -> {
+                appInfo.sortByDescending { it.appName?.toString() }
+            }
+            else -> {
+                appInfo.sortBy { it.appName?.toString() }
+            }
+        }
+        systemAppsRecyclerViewAdapter!!.notifyDataSetChanged()
+        Toast.makeText(activity, whichSorting+" sorting was applied", Toast.LENGTH_LONG).show()
     }
 
 }

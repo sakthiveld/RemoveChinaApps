@@ -43,11 +43,9 @@ class SlideshowFragment : Fragment() {
 
         })
         application_name = root.findViewById<TextView>(R.id.application_name) as TextView
-        application_name!!.typeface = Typeface.createFromAsset(requireActivity().assets, "Exo2-Medium.ttf")
+        //application_name!!.typeface = Typeface.createFromAsset(requireActivity().assets, "Exo2-Medium.ttf")
         connect_us_on = root.findViewById<TextView>(R.id.connect_us_on) as TextView
-        connect_us_on!!.typeface = Typeface.createFromAsset(requireActivity().assets, "Exo2-Medium.ttf")
         made_in_india = root.findViewById<TextView>(R.id.made_in_india) as TextView
-        made_in_india!!.typeface = Typeface.createFromAsset(requireActivity().assets, "Exo2-Medium.ttf")
         facebook = root.findViewById(R.id.facebook) as ImageButton
         instagram = root.findViewById(R.id.instagram) as ImageButton
         twitter = root.findViewById(R.id.twitter) as ImageButton
@@ -71,7 +69,7 @@ class SlideshowFragment : Fragment() {
             val sendIntent = Intent()
             sendIntent.action = Intent.ACTION_SEND
             sendIntent.type = "text/plain"
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "For Indian Apps remover, download this application and enjoy. You are awesome. Made in India. " + "https://play.google.com/store/apps/details?id="+activity?.packageName.toString() + "&hl=en")
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey I am using AppsRemover to uninstall apps easily. You are awesome. Made in India. " + "https://play.google.com/store/apps/details?id="+activity?.packageName.toString() + "&hl=en")
             activity?.startActivity(Intent.createChooser(sendIntent, "Share via"))
         })
         rate_lay = root.findViewById(R.id.rate_lay) as LinearLayout

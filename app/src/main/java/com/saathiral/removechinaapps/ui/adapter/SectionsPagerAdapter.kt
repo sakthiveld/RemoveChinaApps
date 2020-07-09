@@ -8,12 +8,12 @@ import com.saathiral.removechinaapps.R
 import com.saathiral.removechinaapps.ui.systemapps.SystemAppsFragment
 import com.saathiral.removechinaapps.ui.userapps.UserAppsFragment
 
-class SectionsPagerAdapter(private val activity: Activity, fm: FragmentManager) :
+class SectionsPagerAdapter(private val activity: Activity, fm: FragmentManager, private val userAppsFragment: UserAppsFragment, private val systemAppsFragment: SystemAppsFragment) :
     FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return if (position == 0) UserAppsFragment(activity) else SystemAppsFragment(activity)
+        return if (position == 0) userAppsFragment else systemAppsFragment
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
