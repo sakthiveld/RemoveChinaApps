@@ -7,10 +7,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
@@ -154,7 +151,11 @@ class RecyclerViewAdapter(
             open.setOnClickListener {
                 var intent =
                     activity.packageManager.getLaunchIntentForPackage(appInfoArrayList.get(position).packageName.toString())
-                activity.startActivity(intent)
+                try {
+                    activity.startActivity(intent)
+                } catch (e : Exception) {
+                    Toast.makeText(activity, "This app won't open !!!", Toast.LENGTH_LONG).show()
+                }
             }
             var details_icon = view.findViewById<ImageView>(R.id.details_icon)
             details_icon.setImageDrawable(activity.resources.getDrawable(R.drawable.details_white))

@@ -160,9 +160,9 @@ class UserAppsFragment(var activity: Activity) : Fragment(), SortingInterface {
             }
         }
         if(storePreferences.getSorting().equals("AtoZ", ignoreCase = true)) {
-            userApps.sortBy { it.appName?.toString() }
+            userApps.sortBy { it.appName?.toLowerCase().toString() }
         } else {
-            userApps.sortByDescending { it.appName?.toString() }
+            userApps.sortByDescending { it.appName?.toLowerCase().toString() }
         }
         return@Default userApps
     }
@@ -193,13 +193,13 @@ class UserAppsFragment(var activity: Activity) : Fragment(), SortingInterface {
     override fun forSorting(whichSorting: String?) {
         when (whichSorting) {
             "AtoZ" -> {
-                appInfo.sortBy { it.appName?.toString() }
+                appInfo.sortBy { it.appName?.toLowerCase().toString() }
             }
             "ZtoA" -> {
-                appInfo.sortByDescending { it.appName?.toString() }
+                appInfo.sortByDescending { it.appName?.toLowerCase().toString() }
             }
             else -> {
-                appInfo.sortBy { it.appName?.toString() }
+                appInfo.sortBy { it.appName?.toLowerCase().toString() }
             }
         }
         recyclerViewAdapter!!.notifyDataSetChanged()
