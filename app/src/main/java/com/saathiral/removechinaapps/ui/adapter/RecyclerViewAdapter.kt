@@ -141,11 +141,13 @@ class RecyclerViewAdapter(
             var app_name = view.findViewById<TextView>(R.id.app_name)
             app_name.setText(appInfoArrayList.get(position).appName)
             var uninstall = view.findViewById<Button>(R.id.uninstall)
+            var alertDialog : AlertDialog? = null
             uninstall.setOnClickListener {
                 val intent = Intent(Intent.ACTION_DELETE)
                 intent.data = Uri.parse("package:" + appInfoArrayList.get(position).packageName)
                 intent.putExtra(Intent.EXTRA_RETURN_RESULT, true)
                 activity.startActivityForResult(intent, position)
+                alertDialog!!.hide()
             }
             var open = view.findViewById<Button>(R.id.open)
             open.setOnClickListener {
@@ -180,7 +182,7 @@ class RecyclerViewAdapter(
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 activity.startActivity(intent)
             }
-            val alertDialog: AlertDialog = dialogBuilder.create()
+            alertDialog = dialogBuilder.create()
             alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
             alertDialog.show()
         }
