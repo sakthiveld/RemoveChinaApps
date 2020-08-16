@@ -26,6 +26,8 @@
     <string name="open">Open</string>
     <string name="details">Details</string>
     <string name="googleplay">Search in Google Play</string>
+    <string name="extract">Extract APK</string>
+    <string name="share">Share APK</string>
 
     <string name="atoz">Name (AtoZ)</string>
     <string name="ztoa">Name (ZtoA)</string>

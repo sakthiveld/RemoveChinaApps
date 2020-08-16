@@ -129,6 +129,7 @@ class SystemAppsFragment(var activity: Activity) : Fragment(), SortingInterface 
                 newInfo.versionName = deviceAllApps.get(i).versionName
                 newInfo.versionCode = deviceAllApps.get(i).versionCode
                 newInfo.appIcon = deviceAllApps.get(i).applicationInfo.loadIcon(requireActivity().packageManager)
+                newInfo.packageLocation = deviceAllApps.get(i).applicationInfo.sourceDir
                 userApps.add(newInfo)
             }
             if (deviceAllApps[i].applicationInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP !== 0) {
@@ -139,6 +140,7 @@ class SystemAppsFragment(var activity: Activity) : Fragment(), SortingInterface 
                 newInfo.versionName = deviceAllApps.get(i).versionName
                 newInfo.versionCode = deviceAllApps.get(i).versionCode
                 newInfo.appIcon = deviceAllApps.get(i).applicationInfo.loadIcon(requireActivity().packageManager)
+                newInfo.packageLocation = deviceAllApps.get(i).applicationInfo.sourceDir
                 systemApps.add(newInfo)
             }
         }

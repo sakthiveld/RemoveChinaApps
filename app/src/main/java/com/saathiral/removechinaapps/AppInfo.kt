@@ -8,5 +8,5 @@ class AppInfo {
     var versionName: String? = null
     var versionCode = 0
     var appIcon: Drawable? = null
-
+    var packageLocation: String? = null
 }

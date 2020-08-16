@@ -1,13 +1,14 @@
 package com.saathiral.removechinaapps
 
 import android.content.Intent
-import android.graphics.Typeface
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -102,6 +103,17 @@ class MainActivity : AppCompatActivity() {
     private fun initialSetupViews() {
         supportFragmentManager.beginTransaction().add(R.id.fragment, homeFragment!!).commit()
         supportFragmentManager.beginTransaction().add(R.id.navigation_fragment, SlideshowFragment()).commit()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission granted. Now You will able to extract any of an installed application.", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Cannot Extract, Storage Permission denied.", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
